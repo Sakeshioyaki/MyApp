@@ -6,9 +6,8 @@ import Account from '../components/Account';
 import SignUp from './SignUp';
 import { color } from 'react-native-reanimated';
 
-const pressLogin = (props) => {
-    const {email, password} = props;
-    return fetch('http://192.168.0.102:8001/login', {
+const pressLogin = (email, password) => {
+    return fetch('http://192.168.71.110:8001/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

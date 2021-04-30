@@ -4,9 +4,9 @@ import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Button} from 'react-native-elements';
 
 const Submit = props => {
-    console.log(1+props.email);
+    const {email, password, press} = props;
     return(
-        <TouchableOpacity style={[styles.container, {backgroundColor: props.color}]} email={props.email} password={props.password} onPress={props.pressLogin}>
+        <TouchableOpacity style={[styles.container, {backgroundColor: props.color}]} onPress={()=>press(email,password)}>
             <Text style={styles.submitText}>{props.title}</Text>
         </TouchableOpacity>
     )
