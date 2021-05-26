@@ -2,6 +2,7 @@ import React from 'react';
 import { Pressable } from 'react-native';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Button} from 'react-native-elements';
+import Home from '../screens/Home'
 
 const Submit = props => {
     const {email, password, press} = props;
@@ -10,6 +11,7 @@ const Submit = props => {
             <Text style={styles.submitText}>{props.title}</Text>
         </TouchableOpacity>
     )
+
 };
 
 const styles = StyleSheet.create({

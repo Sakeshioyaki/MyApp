@@ -17,11 +17,16 @@ import {
   View,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import Navigation from './Navigation';
+import Screens from './navigation/Screens';
+import Onboarding from './screens/Onboarding';
+import { NavigationContainer } from '@react-navigation/native';
 
 const App: () => Node = () => {
   return(
-    <Navigation/>
+    <NavigationContainer>
+      <Screens/>
+    </NavigationContainer>
+    
   );
 };
 
