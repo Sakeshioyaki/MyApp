@@ -11,6 +11,7 @@ import {
 
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
+import Header from '../components/Header';
 import NewPost from '../screens/NewPost';
 import ProfileContent from '../screens/ProfileContent';
 
@@ -31,8 +32,16 @@ const { height, width } = Dimensions.get("screen");
 
 function TabHome(props){
     return (
-      <Tab.Navigator initialRouteName="Login">
-        <Stack.Screen name="Home" component={Home} />
+      <Tab.Navigator initialRouteName="Login"
+        screenOptions={{
+          headerShown: false}}>
+        <Stack.Screen name="Home" component={Home} 
+        options={{
+          header: () => (
+            <Header search title="Home" 
+            // navigation={this.props.navigation} 
+            />
+          )}}/>
         <Stack.Screen name="SignUp" component={SignUp} />
       </Tab.Navigator>
     )
@@ -49,6 +58,9 @@ export default function AppStack(props) {
           backgroundColor: "white",
           width: width * 0.8
         }}
+        // screenOptions={{
+        //     headerShown : false
+        // }}
         drawerContentOptions={{
           activeTintcolor: "white",
           inactiveTintColor: "#000",
@@ -82,7 +94,8 @@ export default function AppStack(props) {
           name="Onboarding"
           component={Onboarding}
           option={{
-            headerTransparent: true
+            headerTransparent: true,
+            headerShown : false
           }}
         />
         <Stack.Screen name="Login" component={Login} navigator={props.navigation}/>

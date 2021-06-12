@@ -12,18 +12,48 @@ import {Articles} from '../screens';
 import Images from '../constants/Images';
 
 
-const { width } = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
 export default class Home extends React.Component {
+
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          data: [],
+          isLoading: true
+        };
+      }
+    
+    componentDidMount() {
+        fetch('http://192.168.71.105:8001/login', {
+            method: 'POST',
+            headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })    
+        .then((response) => response.json())
+        .then((json) => {
+            this.setState({ data: json.movies });
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {
+            this.setState({ isLoading: false });
+        });
+    }
+    
+
     renderArticles = () => {
         const { navigation } = this.props;
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={styles.articles}>
-                <ImageBackground
-                        source={Images.DrawImage}
-                        style={{ height, width, zIndex: 1 }}>
                     <Block flex>
                     <Card item={articles[0]} horizontal  />
                     <Block flex row>
@@ -37,7 +67,6 @@ export default class Home extends React.Component {
                     </Block>
                     <Card item={articles[6]} />
                     </Block>
-                </ImageBackground>
             {/* <Text>
             Id: {JSON.stringify(this.props.route.params.id)}
             </Text>
