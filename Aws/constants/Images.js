@@ -16,7 +16,8 @@ const Viewed = [
 ];
 
 const Products = {
-  'View article': 'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
+  'View article':
+    'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
 };
 
 export default {
@@ -28,5 +29,5 @@ export default {
   Onboarding,
   Login,
   HomeImage,
-  DrawImage
+  DrawImage,
 };

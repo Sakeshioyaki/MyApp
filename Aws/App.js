@@ -19,19 +19,16 @@ import {
 import 'react-native-gesture-handler';
 import Screens from './navigation/Screens';
 import Onboarding from './screens/Onboarding';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App: () => Node = () => {
-  return(
+  return (
     <NavigationContainer>
-      <Screens/>
+      <Screens />
     </NavigationContainer>
-    
   );
 };
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
 
 export default App;
