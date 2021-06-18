@@ -13,12 +13,13 @@ class Inputs extends Component {
       <View style={[styles.container]}>
         <Input
           placeholder={this.props.name}
+          placeholderTextColor="white"
+          style={{color: 'white'}}
           onFocus={this.onFocusChange}
           inputContainerStyle={styles.inputContainer}
           inputStyle={styles.inputText}
           secureTextEntry={this.props.pass}
           onChangeText={this.props.handleText}
-          defaultValue={this.props.defaultValue}
           leftIcon={
             <Icon
               name={this.props.icon}
@@ -34,10 +35,11 @@ class Inputs extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
+    width: 350,
     height: 45,
     marginVertical: 8,
     borderColor: 'white',
+    // borderWidth: 1,
   },
 });
 

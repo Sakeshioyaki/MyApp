@@ -4,7 +4,6 @@ import {
   ImageBackground,
   Dimensions,
   View,
-  Text,
   Image,
   ScrollView,
   StyleSheet,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 import Inputs from '../components/Input';
 import Submit from '../components/Submit';
+import {Block, Button, Text, theme} from 'galio-framework';
 import Account from '../components/Account';
 import Images from '../constants/Images';
 import auth from '@react-native-firebase/auth';
@@ -106,13 +106,18 @@ const Login = props => {
                 </Text>
               </View>
               <View style={{marginTop: 10}}>
-                <Submit
+                <Button
                   title="LOGIN"
-                  color="#5b21cf"
+                  textStyle="white"
+                  color="success"
+                  opacity="20"
                   email={email}
                   password={password}
-                  press={pressLogin}
-                />
+                  onPress={() => pressLogin(email, password)}>
+                  <Text bold h5 color="white">
+                    Login
+                  </Text>
+                </Button>
               </View>
               <Text style={styles.textBody}>Or connect using</Text>
               <View style={{flexDirection: 'row'}}>
@@ -133,7 +138,11 @@ const Login = props => {
                 or Don't have an account yet
               </Text>
               <Text
-                style={[styles.textBody, {color: 'blue'}, {fontWeight: 'bold'}]}
+                style={[
+                  styles.textBody,
+                  {color: '#00ffff'},
+                  {fontWeight: 'bold'},
+                ]}
                 onPress={() => props.navigation.navigate('SignUp')}>
                 SignUp
               </Text>
@@ -164,8 +173,9 @@ const styles = StyleSheet.create({
   },
   textBody: {
     fontFamily: 'Foundation',
-    fontSize: 13,
+    fontSize: 15,
     color: 'white',
+    marginTop: 10,
   },
 });
 
