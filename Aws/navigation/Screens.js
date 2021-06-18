@@ -42,7 +42,7 @@ function TabHome(props) {
   );
 }
 
-export default function AppStack(props) {
+function AppStack(props) {
   return (
     <Drawer.Navigator
       style={{flex: 1}}
@@ -79,7 +79,7 @@ export default function AppStack(props) {
   );
 }
 
-function OnboardingStack(props) {
+export default function OnboardingStack(props) {
   console.log(props);
   return (
     <Stack.Navigator mode="card" headerMode="none">
@@ -94,6 +94,11 @@ function OnboardingStack(props) {
       <Stack.Screen
         name="Login"
         component={Login}
+        navigator={props.navigation}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
         navigator={props.navigation}
       />
       <Stack.Screen name="AppStack" component={AppStack} />

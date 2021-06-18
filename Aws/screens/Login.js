@@ -8,13 +8,32 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  TextInput,
 } from 'react-native';
 import Inputs from '../components/Input';
 import Submit from '../components/Submit';
 import Account from '../components/Account';
 import Images from '../constants/Images';
+import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import State from '../context/State';
 
 const {height, width} = Dimensions.get('screen');
+GoogleSignin.configure({
+  webClientId: '214403862704-rmgqbt2glkl8fas6tb17ksgd3n749',
+});
+
+async function FacebookLogin() {}
+async function GoogleLogin() {
+  // Get the users ID token
+  const {idToken} = await GoogleSignin.signIn();
+
+  // Create a Google credential with the token
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+  // Sign-in the user with the credential
+  return auth().signInWithCredential(googleCredential);
+}
 
 const pressLogin = (email, password) => {
   return fetch('http://192.168.71.105:8001/login', {
@@ -45,58 +64,84 @@ const Login = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
-    <ScrollView style={{}}>
-      <ImageBackground source={Images.Login} style={{height, width, zIndex: 1}}>
-        <View style={styles.container}>
-          <Image
-            source={Images.LoginImage}
-            resizeMode="center"
-            style={styles.image}
-          />
-          <Text style={styles.textTitle}> Wellcome back </Text>
-          <Text style={styles.textBody}>Login to your acccount</Text>
-          <View style={{marginTop: 15}}>
-            <Inputs name="Email" icon="user" value="" handleText={setEmail} />
-          </View>
-          <View style={{marginTop: 5}}>
-            <Inputs
-              name="Password"
-              icon="lock"
-              pass={true}
-              handleText={setPassword}
-            />
-          </View>
-          <View style={{width: '90%'}}>
-            <Text style={[styles.textBody, {alignSelf: 'flex-end'}]} />
-            Forgot your password ?{' '}
-          </View>
-          <View style={{marginTop: 10}}>
-            <Submit
-              title="LOGIN"
-              color="#5b21cf"
-              email={email}
-              password={password}
-              press={pressLogin}
-            />
-          </View>
-          <Text style={styles.textBody}>Or connect using</Text>
-          <View style={{flexDirection: 'row'}}>
-            <Account color="#3b5c8f" icon="facebook-square" title="Facebook" />
-            <Account color="#ec482f" icon="google" title="Google" />
-          </View>
-          <Text style={[styles.textBody, {alignSelf: 'center'}]}>
-            {' '}
-            or Already have an account
-          </Text>
-          <Text
-            style={[styles.textBody, {color: 'blue'}, {fontWeight: 'bold'}]}
-            onPress={() => props.navigation.navigate('SignUp')}>
-            {' '}
-            SignUp
-          </Text>
-        </View>
-      </ImageBackground>
-    </ScrollView>
+    <State.Consumer>
+      {State => (
+        <ScrollView style={{}}>
+          <ImageBackground
+            source={Images.Login}
+            style={{height, width, zIndex: 1}}>
+            <View style={styles.container}>
+              <Image
+                source={Images.LoginImage}
+                resizeMode="center"
+                style={styles.image}
+              />
+              <Text style={styles.textTitle}> Wellcome back </Text>
+              <Text style={styles.textBody}>Login to your acccount</Text>
+              <View style={{marginTop: 15}}>
+                {/* <Inputs name="Email" icon="user" value="" handleText={setEmail} /> */}
+                <Inputs
+                  name="Email"
+                  icon="user"
+                  value=""
+                  iconColor="white"
+                  handleText={setEmail}
+                  defaultValue="Email"
+                />
+              </View>
+              <View style={{marginTop: 5}}>
+                <Inputs
+                  name="Password"
+                  icon="lock"
+                  iconColor="white"
+                  pass={true}
+                  handleText={setPassword}
+                  defaultValue="Password"
+                />
+              </View>
+              {console.log('data is : ' + State.data)}
+              <View style={{width: '90%'}}>
+                <Text style={[styles.textBody, {alignSelf: 'flex-end'}]}>
+                  Forgot your password ?
+                </Text>
+              </View>
+              <View style={{marginTop: 10}}>
+                <Submit
+                  title="LOGIN"
+                  color="#5b21cf"
+                  email={email}
+                  password={password}
+                  press={pressLogin}
+                />
+              </View>
+              <Text style={styles.textBody}>Or connect using</Text>
+              <View style={{flexDirection: 'row'}}>
+                <Account
+                  color="#3b5c8f"
+                  icon="facebook-square"
+                  title="Facebook"
+                  handler="FacebookLogin"
+                />
+                <Account
+                  color="#ec482f"
+                  icon="google"
+                  title="Google"
+                  handler="GoogleLogin"
+                />
+              </View>
+              <Text style={[styles.textBody, {alignSelf: 'center'}]}>
+                or Don't have an account yet
+              </Text>
+              <Text
+                style={[styles.textBody, {color: 'blue'}, {fontWeight: 'bold'}]}
+                onPress={() => props.navigation.navigate('SignUp')}>
+                SignUp
+              </Text>
+            </View>
+          </ImageBackground>
+        </ScrollView>
+      )}
+    </State.Consumer>
   );
 };
 
@@ -120,7 +165,7 @@ const styles = StyleSheet.create({
   textBody: {
     fontFamily: 'Foundation',
     fontSize: 13,
-    color: 'gray',
+    color: 'white',
   },
 });
 

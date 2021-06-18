@@ -9,8 +9,6 @@ import {
 import {Block, Button, Text, theme} from 'galio-framework';
 import argonTheme from '../constants/Theme';
 import Images from '../constants/Images';
-import Screen from '../navigation/Screens';
-import Login from '../screens/Login';
 
 const {height, width} = Dimensions.get('screen');
 
@@ -57,7 +55,16 @@ class Onboarding extends React.Component {
                 onPress={() => navigation.navigate('Login')}
                 textStyle={{color: argonTheme.COLORS.BLACK}}>
                 <Text bold h5>
-                  Get Started
+                  Login
+                </Text>
+              </Button>
+              <Button
+                style={styles.button}
+                color={argonTheme.COLORS.SECONDARY}
+                onPress={() => navigation.navigate('SignUp')}
+                textStyle={{color: argonTheme.COLORS.BLACK}}>
+                <Text bold h5>
+                  SignUp
                 </Text>
               </Button>
             </Block>

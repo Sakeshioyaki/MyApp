@@ -1,8 +1,5 @@
 import React from 'react';
-import {Pressable} from 'react-native';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {Button} from 'react-native-elements';
-import Home from '../screens/Home';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 const Submit = props => {
   const {email, password, press} = props;
@@ -25,7 +22,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   submitText: {
-    fontSize: 17,
+    fontSize: 19,
     fontWeight: 'bold',
     color: 'white',
     alignSelf: 'center',

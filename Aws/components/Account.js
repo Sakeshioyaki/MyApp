@@ -5,7 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const Account = props => {
   return (
     <TouchableOpacity
-      style={[styles.container, {backgroundColor: props.color}]}>
+      style={[styles.container, {backgroundColor: props.color}]}
+      onPress={() => props.handler()}>
       <Icon style={styles.accIcon} name={props.icon} />
       <Text style={styles.textTitle}>{props.title}</Text>
     </TouchableOpacity>

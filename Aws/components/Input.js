@@ -18,11 +18,12 @@ class Inputs extends Component {
           inputStyle={styles.inputText}
           secureTextEntry={this.props.pass}
           onChangeText={this.props.handleText}
+          defaultValue={this.props.defaultValue}
           leftIcon={
             <Icon
               name={this.props.icon}
               size={20}
-              color={this.state.isFocused}
+              color={this.props.iconColor}
             />
           }
         />
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 45,
     marginVertical: 8,
+    borderColor: 'white',
   },
 });
 
