@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const {width} = Dimensions.get('screen');
 
-function TabHome(props) {
+export function TabHome(props) {
   return (
     <Tab.Navigator
       initialRouteName="Login"
@@ -82,13 +82,14 @@ function AppStack(props) {
 export default function OnboardingStack(props) {
   console.log(props);
   return (
-    <Stack.Navigator mode="card" headerMode="none">
+    <Stack.Navigator headerMode="none">
       <Stack.Screen
         name="Onboarding"
         component={Onboarding}
         option={{
-          headerTransparent: true,
-          headerShown: false,
+          headerShown: true,
+          headerTransparent: false,
+          presentation: 'card',
         }}
       />
       <Stack.Screen

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   ImageBackground,
   Dimensions,
@@ -11,29 +11,15 @@ import {
 } from 'react-native';
 import Inputs from '../components/Input';
 import Submit from '../components/Submit';
-import {Block, Button, Text, theme} from 'galio-framework';
+import {Block, Button, Text} from 'galio-framework';
 import Account from '../components/Account';
 import Images from '../constants/Images';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import State from '../context/State';
+import {Context as AuthContext} from '../context/AuthContext';
 
 const {height, width} = Dimensions.get('screen');
-GoogleSignin.configure({
-  webClientId: '214403862704-rmgqbt2glkl8fas6tb17ksgd3n749',
-});
-
-async function FacebookLogin() {}
-async function GoogleLogin() {
-  // Get the users ID token
-  const {idToken} = await GoogleSignin.signIn();
-
-  // Create a Google credential with the token
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-  // Sign-in the user with the credential
-  return auth().signInWithCredential(googleCredential);
-}
 
 const pressLogin = (email, password) => {
   return fetch('http://192.168.71.105:8001/login', {
@@ -61,6 +47,7 @@ const pressLogin = (email, password) => {
 };
 
 const Login = props => {
+  const {state, signinGoogle, signinFacebook} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
@@ -121,18 +108,20 @@ const Login = props => {
               </View>
               <Text style={styles.textBody}>Or connect using</Text>
               <View style={{flexDirection: 'row'}}>
-                <Account
+                <Button
                   color="#3b5c8f"
                   icon="facebook-square"
                   title="Facebook"
-                  handler="FacebookLogin"
-                />
-                <Account
+                  onPress={() => signinFacebook()}>
+                  <Text>Facebook</Text>
+                </Button>
+                <Button
                   color="#ec482f"
                   icon="google"
                   title="Google"
-                  handler="GoogleLogin"
-                />
+                  onPress={() => signinGoogle()}>
+                  <Text>Google</Text>
+                </Button>
               </View>
               <Text style={[styles.textBody, {alignSelf: 'center'}]}>
                 or Don't have an account yet

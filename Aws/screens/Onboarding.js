@@ -9,6 +9,8 @@ import {
 import {Block, Button, Text, theme} from 'galio-framework';
 import argonTheme from '../constants/Theme';
 import Images from '../constants/Images';
+import {Context as AuthContext} from '../context/AuthContext';
+
 
 const {height, width} = Dimensions.get('screen');
 
@@ -16,6 +18,15 @@ class Onboarding extends React.Component {
   render() {
     const {navigation} = this.props;
     console.log(this.props);
+
+    const handleToHome = ({navigation}) => {
+      if (!user) {
+        navigation.navigate('SignIn');
+      } else {
+        navigation.navigate('TabHome');
+      }
+      return true;
+    };
 
     return (
       <Block flex style={styles.container}>
@@ -52,19 +63,10 @@ class Onboarding extends React.Component {
               <Button
                 style={styles.button}
                 color={argonTheme.COLORS.SECONDARY}
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => handleToHome(navigation)}
                 textStyle={{color: argonTheme.COLORS.BLACK}}>
                 <Text bold h5>
-                  Login
-                </Text>
-              </Button>
-              <Button
-                style={styles.button}
-                color={argonTheme.COLORS.SECONDARY}
-                onPress={() => navigation.navigate('SignUp')}
-                textStyle={{color: argonTheme.COLORS.BLACK}}>
-                <Text bold h5>
-                  SignUp
+                  Start
                 </Text>
               </Button>
             </Block>
