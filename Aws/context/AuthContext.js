@@ -29,8 +29,11 @@ const authReducer = (state, action) => {
     case 'signout':
       return {token: null, email: ''};
     case 'signin':
+      return signin();
     case 'signinGoogle':
+      return signinGoogle();
     case 'signinFacebook':
+      return signinFacebook();
     case 'signup':
       return {
         token: action.payload.token,

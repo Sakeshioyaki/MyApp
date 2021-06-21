@@ -24,7 +24,7 @@
     "express": "^4.17.1",
     "galio-framework": "^0.8.0",
     "react": "17.0.1",
-    "react-native": "0.64.2",
+    "react-native": "^0.64.2",
     "react-native-elements": "^3.3.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-paper": "^4.8.1",
