@@ -4,9 +4,7 @@ const Onboarding = require('../assets/imgs/background.jpg');
 const Login = require('../assets/imgs/loginBack.jpg');
 const HomeImage = require('../assets/imgs/17545.jpg');
 const DrawImage = require('../assets/imgs/1762.jpg');
-
-
-const ProfilePicture = 'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?fit=crop&w=1650&q=80';
+const ProfilePicture = require('../assets/imgs/me.png');
 
 const Viewed = [
   'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?fit=crop&w=240&q=80',
@@ -18,7 +16,8 @@ const Viewed = [
 ];
 
 const Products = {
-  'View article': 'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
+  'View article':
+    'https://images.unsplash.com/photo-1501601983405-7c7cabaa1581?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=840&q=840',
 };
 
 export default {
@@ -30,5 +29,5 @@ export default {
   Onboarding,
   Login,
   HomeImage,
-  DrawImage
+  DrawImage,
 };

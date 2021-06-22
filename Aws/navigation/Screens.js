@@ -1,96 +1,112 @@
-import React, {useState, useEffect} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {ImageBackground, Dimensions, View, Text, Image, ScrollView, StyleSheet} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView
-} from '@react-navigation/drawer';
+import React from 'react';
+import {Dimensions} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
-import NewPost from '../screens/NewPost';
+import Header from '../components/Header';
 import ProfileContent from '../screens/ProfileContent';
 
 import Home from '../screens/Home';
-import DrawerInfo from '../screens/DrawerInfo';
 import Onboarding from '../screens/Onboarding';
-// import TabHome from './screens/TabHome';
+import Loading from '../screens/Loading';
 
-import { set } from 'react-native-reanimated';
-import { Block } from 'galio-framework';
-
-const user = "Sakeshioyaki";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const { height, width } = Dimensions.get("screen");
+const {width} = Dimensions.get('screen');
 
-
-function TabHome(props){
-    return (
-      <Tab.Navigator initialRouteName="Login">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-      </Tab.Navigator>
-    )
-};
-
-
-
-export default function AppStack(props) {
+export function TabHome(props) {
   return (
-      <Drawer.Navigator
-        style={{ flex: 1 }}
-        drawerContent={props => <ProfileContent {...props} />}
-        drawerStyle={{
-          backgroundColor: "white",
-          width: width * 0.8
+    <Tab.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          header: () => (
+            <Header
+              search
+              title="Home"
+              // navigation={this.props.navigation}
+            />
+          ),
         }}
-        drawerContentOptions={{
-          activeTintcolor: "white",
-          inactiveTintColor: "#000",
-          activeBackgroundColor: "transparent",
-          itemStyle: {
-            width: width * 0.75,
-            backgroundColor: "transparent",
-            paddingVertical: 16,
-            paddingHorizonal: 12,
-            justifyContent: "center",
-            alignContent: "center",
-            alignItems: "center",
-            overflow: "hidden"
-          },
-          labelStyle: {
-            fontSize: 18,
-            marginLeft: 12,
-            fontWeight: "normal"
-          }
-        }}>
-        <Drawer.Screen name="TabHome" component={TabHome} />
-      </Drawer.Navigator>
+      />
+      <Stack.Screen name="SignUp" component={SignUp} />
+    </Tab.Navigator>
   );
 }
 
- function OnboardingStack(props) {
+function AppStack(props) {
+  return (
+    <Drawer.Navigator
+      style={{flex: 1}}
+      drawerContent={props => <ProfileContent {...props} />}
+      drawerStyle={{
+        backgroundColor: 'white',
+        width: width * 0.8,
+      }}
+      // screenOptions={{
+      //     headerShown : false
+      // }}
+      drawerContentOptions={{
+        activeTintcolor: 'white',
+        inactiveTintColor: '#000',
+        activeBackgroundColor: 'transparent',
+        itemStyle: {
+          width: width * 0.75,
+          backgroundColor: 'transparent',
+          paddingVertical: 16,
+          paddingHorizonal: 12,
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
+        },
+        labelStyle: {
+          fontSize: 18,
+          marginLeft: 12,
+          fontWeight: 'normal',
+        },
+      }}>
+      <Drawer.Screen name="TabHome" component={TabHome} />
+    </Drawer.Navigator>
+  );
+}
+
+export default function OnboardingStack(props) {
   console.log(props);
   return (
-      <Stack.Navigator mode="card" headerMode="none">
-        <Stack.Screen
-          name="Onboarding"
-          component={Onboarding}
-          option={{
-            headerTransparent: true
-          }}
-        />
-        <Stack.Screen name="Login" component={Login} navigator={props.navigation}/>
-        <Stack.Screen name="AppStack" component={AppStack} />
-      </Stack.Navigator>
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen
+        name="Onboarding"
+        component={Onboarding}
+        option={{
+          headerShown: true,
+          headerTransparent: false,
+          presentation: 'card',
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        navigator={props.navigation}
+      />
+      <Stack.Screen
+        name="Loading"
+        component={Loading}
+        navigator={props.navigation}
+      />
+      <Stack.Screen name="AppStack" component={AppStack} />
+    </Stack.Navigator>
   );
 }
- 
 
 // function test1(props) {
 //     const [dataUser,setDataUser] = useState();
@@ -129,7 +145,6 @@ export default function AppStack(props) {
 //         </View>
 //     )
 // }
-
 
 // function Screens (props){
 //     return(

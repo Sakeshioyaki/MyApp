@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -19,19 +19,33 @@ import {
 import 'react-native-gesture-handler';
 import Screens from './navigation/Screens';
 import Onboarding from './screens/Onboarding';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 
 const App: () => Node = () => {
-  return(
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  });
+
+  if (initializing) return null;
+  return (
     <NavigationContainer>
-      <Screens/>
+      <Screens />
     </NavigationContainer>
-    
   );
 };
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
 
 export default App;
