@@ -1,8 +1,7 @@
 import React from 'react';
 import {ImageBackground, Image, StyleSheet, Dimensions} from 'react-native';
-import {Block, Text, theme} from 'galio-framework';
+import {Block, Text, theme, Button} from 'galio-framework';
 import {Images, argonTheme} from '../constants';
-import Button from '../components/Button';
 
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 

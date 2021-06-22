@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   ImageBackground,
   Dimensions,
@@ -16,8 +16,8 @@ import Account from '../components/Account';
 import Images from '../constants/Images';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import State from '../context/State';
-import {Context as AuthContext} from '../context/AuthContext';
+// import State from '../context/State';
+// import {Context as AuthContext} from '../context/AuthContext';
 
 const {height, width} = Dimensions.get('screen');
 
@@ -47,12 +47,42 @@ const pressLogin = (email, password) => {
 };
 
 const Login = props => {
-  const {state, signinGoogle, signinFacebook} = useContext(AuthContext);
+  // const {state, signinGoogle, signinFacebook} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+
+  async function signinGoogle(){
+
+ // Get the users ID token
+ const { idToken } = await GoogleSignin.signIn();
+
+ // Create a Google credential with the token
+ const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+ // Sign-in the user with the credential
+ return auth().signInWithCredential(googleCredential);
+
+  }
+
+
+
   return (
-    <State.Consumer>
-      {State => (
         <ScrollView style={{}}>
           <ImageBackground
             source={Images.Login}
@@ -86,7 +116,6 @@ const Login = props => {
                   defaultValue="Password"
                 />
               </View>
-              {console.log('data is : ' + State.data)}
               <View style={{width: '90%'}}>
                 <Text style={[styles.textBody, {alignSelf: 'flex-end'}]}>
                   Forgot your password ?
@@ -119,27 +148,27 @@ const Login = props => {
                   color="#ec482f"
                   icon="google"
                   title="Google"
-                  onPress={() => signinGoogle()}>
+                  onPress={() => signinGoogle().then(() => console.log('Signed in with Google!'))}>
                   <Text>Google</Text>
                 </Button>
               </View>
               <Text style={[styles.textBody, {alignSelf: 'center'}]}>
                 or Don't have an account yet
               </Text>
-              <Text
+              <Button
                 style={[
                   styles.textBody,
                   {color: '#00ffff'},
                   {fontWeight: 'bold'},
                 ]}
                 onPress={() => props.navigation.navigate('SignUp')}>
+                  <Text>
                 SignUp
               </Text>
+              </Button>
             </View>
           </ImageBackground>
         </ScrollView>
-      )}
-    </State.Consumer>
   );
 };
 

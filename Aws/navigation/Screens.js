@@ -11,6 +11,7 @@ import ProfileContent from '../screens/ProfileContent';
 
 import Home from '../screens/Home';
 import Onboarding from '../screens/Onboarding';
+import Loading from '../screens/Loading';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -98,8 +99,8 @@ export default function OnboardingStack(props) {
         navigator={props.navigation}
       />
       <Stack.Screen
-        name="SignUp"
-        component={SignUp}
+        name="Loading"
+        component={Loading}
         navigator={props.navigation}
       />
       <Stack.Screen name="AppStack" component={AppStack} />

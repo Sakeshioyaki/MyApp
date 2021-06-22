@@ -9,8 +9,8 @@ import {
 import {Block, Button, Text, theme} from 'galio-framework';
 import argonTheme from '../constants/Theme';
 import Images from '../constants/Images';
-import {Context as AuthContext} from '../context/AuthContext';
-
+// import {Context as AuthContext} from '../context/AuthContext';
+import auth from '@react-native-firebase/auth';
 
 const {height, width} = Dimensions.get('screen');
 
@@ -20,13 +20,9 @@ class Onboarding extends React.Component {
     console.log(this.props);
 
     const handleToHome = ({navigation}) => {
-      if (!user) {
-        navigation.navigate('SignIn');
-      } else {
-        navigation.navigate('TabHome');
-      }
-      return true;
-    };
+      auth().onAuthStateChanged(user => {
+        navigation.navigate(user ? 'AppStack' : 'Login')}
+      )};
 
     return (
       <Block flex style={styles.container}>
@@ -63,7 +59,8 @@ class Onboarding extends React.Component {
               <Button
                 style={styles.button}
                 color={argonTheme.COLORS.SECONDARY}
-                onPress={() => handleToHome(navigation)}
+                onPress={() => { auth().onAuthStateChanged(user => {
+                  navigation.navigate(user ? 'AppStack' : 'Login')})}}
                 textStyle={{color: argonTheme.COLORS.BLACK}}>
                 <Text bold h5>
                   Start
