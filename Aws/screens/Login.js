@@ -11,12 +11,15 @@ import {
 } from 'react-native';
 import Inputs from '../components/Input';
 import Submit from '../components/Submit';
-import {Block, Button, Text, theme} from 'galio-framework';
+import {Block, Text, theme, Button} from 'galio-framework';
 import Account from '../components/Account';
 import Images from '../constants/Images';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import State from '../context/State';
+import { useAuth } from '../context/useAuth';
+import argonTheme from '../constants/Theme';
+
 
 const {height, width} = Dimensions.get('screen');
 GoogleSignin.configure({
@@ -30,6 +33,7 @@ async function GoogleLogin() {
 
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  localStorage.setItem("idUser" , JSON.stringify(idToken));
 
   // Sign-in the user with the credential
   return auth().signInWithCredential(googleCredential);
@@ -127,12 +131,18 @@ const Login = props => {
                   title="Facebook"
                   handler="FacebookLogin"
                 />
-                <Account
-                  color="#ec482f"
-                  icon="google"
-                  title="Google"
-                  handler="GoogleLogin"
-                />
+                <Button
+                style={styles.button}
+                color={argonTheme.COLORS.SECONDARY}
+                onPress={() => {
+                  console.log('whyyyy');
+                  GoogleLogin();
+                }}
+                textStyle={{color: argonTheme.COLORS.BLACK}}>
+                <Text bold h5>
+                  Google
+                </Text>
+              </Button>
               </View>
               <Text style={[styles.textBody, {alignSelf: 'center'}]}>
                 or Don't have an account yet
