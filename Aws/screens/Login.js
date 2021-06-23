@@ -7,19 +7,13 @@ import {
   Image,
   ScrollView,
   StyleSheet,
-  TextInput,
 } from 'react-native';
 import Inputs from '../components/Input';
-import Submit from '../components/Submit';
-import {Block, Text, theme, Button} from 'galio-framework';
-import Account from '../components/Account';
+import {Text, Button} from 'galio-framework';
 import Images from '../constants/Images';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import State from '../context/State';
-import { useAuth } from '../context/useAuth';
-import argonTheme from '../constants/Theme';
-
 
 const {height, width} = Dimensions.get('screen');
 GoogleSignin.configure({
@@ -33,7 +27,7 @@ async function GoogleLogin() {
 
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-  localStorage.setItem("idUser" , JSON.stringify(idToken));
+  localStorage.setItem('idUser', JSON.stringify(idToken));
 
   // Sign-in the user with the credential
   return auth().signInWithCredential(googleCredential);
@@ -68,99 +62,108 @@ const Login = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
-    <State.Consumer>
-      {State => (
-        <ScrollView style={{}}>
-          <ImageBackground
-            source={Images.Login}
-            style={{height, width, zIndex: 1}}>
-            <View style={styles.container}>
-              <Image
-                source={Images.LoginImage}
-                resizeMode="center"
-                style={styles.image}
-              />
-              <Text style={styles.textTitle}> Wellcome back </Text>
-              <Text style={styles.textBody}>Login to your acccount</Text>
-              <View style={{marginTop: 15}}>
-                {/* <Inputs name="Email" icon="user" value="" handleText={setEmail} /> */}
-                <Inputs
-                  name="Email"
-                  icon="user"
-                  value=""
-                  iconColor="white"
-                  handleText={setEmail}
-                  defaultValue="Email"
-                />
-              </View>
-              <View style={{marginTop: 5}}>
-                <Inputs
-                  name="Password"
-                  icon="lock"
-                  iconColor="white"
-                  pass={true}
-                  handleText={setPassword}
-                  defaultValue="Password"
-                />
-              </View>
-              {console.log('data is : ' + State.data)}
-              <View style={{width: '90%'}}>
-                <Text style={[styles.textBody, {alignSelf: 'flex-end'}]}>
-                  Forgot your password ?
-                </Text>
-              </View>
-              <View style={{marginTop: 10}}>
-                <Button
-                  title="LOGIN"
-                  textStyle="white"
-                  color="success"
-                  opacity="20"
-                  email={email}
-                  password={password}
-                  onPress={() => pressLogin(email, password)}>
-                  <Text bold h5 color="white">
-                    Login
-                  </Text>
-                </Button>
-              </View>
-              <Text style={styles.textBody}>Or connect using</Text>
-              <View style={{flexDirection: 'row'}}>
-                <Account
-                  color="#3b5c8f"
-                  icon="facebook-square"
-                  title="Facebook"
-                  handler="FacebookLogin"
-                />
-                <Button
-                style={styles.button}
-                color={argonTheme.COLORS.SECONDARY}
-                onPress={() => {
-                  console.log('whyyyy');
-                  GoogleLogin();
-                }}
-                textStyle={{color: argonTheme.COLORS.BLACK}}>
-                <Text bold h5>
-                  Google
-                </Text>
-              </Button>
-              </View>
-              <Text style={[styles.textBody, {alignSelf: 'center'}]}>
-                or Don't have an account yet
+    <ScrollView style={{}}>
+      <ImageBackground source={Images.Login} style={{height, width, zIndex: 1}}>
+        <View style={styles.container}>
+          <Image
+            source={Images.LoginImage}
+            resizeMode="center"
+            style={styles.image}
+          />
+          <Text style={styles.textTitle}> Wellcome back </Text>
+          <Text style={styles.textBody}>Login to your acccount</Text>
+          <View style={{marginTop: 15}}>
+            {/* <Inputs name="Email" icon="user" value="" handleText={setEmail} /> */}
+            <Inputs
+              name="Email"
+              icon="user"
+              value=""
+              iconColor="white"
+              handleText={setEmail}
+              defaultValue="Email"
+            />
+          </View>
+          <View style={{marginTop: 5}}>
+            <Inputs
+              name="Password"
+              icon="lock"
+              iconColor="white"
+              pass={true}
+              handleText={setPassword}
+              defaultValue="Password"
+            />
+          </View>
+          {console.log('data is : ' + State.data)}
+          <View style={{width: '90%'}}>
+            <Text style={[styles.textBody, {alignSelf: 'flex-end'}]}>
+              Forgot your password ?
+            </Text>
+          </View>
+          <View style={{marginTop: 10}}>
+            <Button
+              title="LOGIN"
+              textStyle="white"
+              color="success"
+              opacity="20"
+              email={email}
+              password={password}
+              onPress={() => pressLogin(email, password)}>
+              <Text bold h5 color="white">
+                Login
               </Text>
-              <Text
-                style={[
-                  styles.textBody,
-                  {color: '#00ffff'},
-                  {fontWeight: 'bold'},
-                ]}
-                onPress={() => props.navigation.navigate('SignUp')}>
-                SignUp
+            </Button>
+          </View>
+          <Text style={styles.textBody}>Or connect using</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              onlyIcon
+              icon="facebook-square"
+              iconFamily="antdesign"
+              iconSize={30}
+              color="#ffffff"
+              iconColor="#4267b2"
+              style={{width: 40, height: 40}}
+            />
+            {/* <Button
+              style={styles.button}
+              color={argonTheme.COLORS.SECONDARY}
+              icon="tags"
+              iconFamily="antdesign"
+              iconSize={30}
+              iconColor="#fff"
+              onPress={() => {
+                console.log('whyyyy');
+                GoogleLogin();
+              }}>
+              <Text bold h5>
+                Google
               </Text>
-            </View>
-          </ImageBackground>
-        </ScrollView>
-      )}
-    </State.Consumer>
+            </Button> */}
+            <Button
+              onlyIcon
+              icon="google"
+              iconFamily="antdesign"
+              iconSize={30}
+              color="#ffffff"
+              iconColor="#EA4335"
+              style={{width: 40, height: 40}}
+              onPress={() => {
+                console.log('whyyyy');
+                GoogleLogin();
+              }}
+            />
+          </View>
+          <Text style={[styles.textBody, {alignSelf: 'center'}]}>
+            or Don't have an account yet
+          </Text>
+          <Text
+            style={[styles.textBody, {color: '#00ffff'}, {fontWeight: 'bold'}]}
+            onPress={() => props.navigation.navigate('SignUp')}>
+            SignUp
+          </Text>
+        </View>
+      </ImageBackground>
+    </ScrollView>
   );
 };
 
