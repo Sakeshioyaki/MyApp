@@ -5,6 +5,7 @@ import {StyleSheet, Image, TouchableWithoutFeedback} from 'react-native';
 import {Block, Text, theme} from 'galio-framework';
 
 import {argonTheme} from '../constants';
+import Detail from '../screens/Detail';
 
 class Card extends React.Component {
   render() {
@@ -31,12 +32,12 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Lyrics')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Detail')}>
           <Block flex style={imgContainer}>
             <Image source={{uri: item.image}} style={imageStyles} />
           </Block>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Lyrics')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Detail')}>
           <Block flex space="between" style={styles.cardDescription}>
             <Text size={14} style={styles.cardTitle}>
               {item.title}

@@ -11,6 +11,7 @@ import ProfileContent from '../screens/ProfileContent';
 
 import Home from '../screens/Home';
 import Onboarding from '../screens/Onboarding';
+import Detail from '../screens/Detail';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -37,7 +38,7 @@ function TabHome(props) {
           ),
         }}
       />
-      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Detail" component={Detail} />
     </Tab.Navigator>
   );
 }
