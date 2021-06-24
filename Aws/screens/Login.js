@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ImageBackground,
   Dimensions,
@@ -61,6 +61,36 @@ const pressLogin = (email, password) => {
 const Login = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  // if (initializing) return null;
+
+  // if (!user) {
+  //   return (
+  //     <View>
+  //       <Text>Login</Text>
+  //     </View>
+  //   );
+  // }
+
+  // return (
+  //   <View>
+  //     <Text>Welcome {user.email}</Text>
+  //   </View>
+  // );
   return (
     <ScrollView style={{}}>
       <ImageBackground source={Images.Login} style={{height, width, zIndex: 1}}>
@@ -148,8 +178,10 @@ const Login = props => {
               iconColor="#EA4335"
               style={{width: 40, height: 40}}
               onPress={() => {
-                console.log('whyyyy');
                 GoogleLogin();
+                if (!user) {
+                  props.navigation.navigate('AppStack');
+                }
               }}
             />
           </View>
