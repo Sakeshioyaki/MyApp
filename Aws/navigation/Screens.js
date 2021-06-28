@@ -12,6 +12,7 @@ import ProfileContent from '../screens/ProfileContent';
 import Home from '../screens/Home';
 import Onboarding from '../screens/Onboarding';
 import Detail from '../screens/Detail';
+import Upload from '../screens/upload';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -38,7 +39,7 @@ function TabHome(props) {
           ),
         }}
       />
-      <Stack.Screen name="Detail" component={Detail} />
+      <Stack.Screen name="Upload" component={Upload} />
     </Tab.Navigator>
   );
 }

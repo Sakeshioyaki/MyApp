@@ -17,7 +17,7 @@ import State from '../context/State';
 
 const {height, width} = Dimensions.get('screen');
 GoogleSignin.configure({
-  webClientId: '214403862704-rmgqbt2glkl8fas6tb17ksgd3n749',
+  webClientId: '214403862704-rmgqbt2glkl8fas6tb17ksgd3n749ghm',
 });
 
 async function FacebookLogin() {}
