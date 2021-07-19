@@ -39,15 +39,19 @@ app.post('/login', async(req, res)=> {
         const users = database.collection("User");
         const you = await users.findOne({"email":req.body.email});
         if (!you) {
-            return res.status(400).json({ login: "Email doesn't exists!" });
+            return res.json({ message: "Email doesn't exists!" });
         }
         else if(req.body.password != you.password){
-            return res.status(400).json({ 
-                login: "Password doesn't correct!",
+            return res.json({ 
+                message: "Password doesn't correct!",
          });
         }
         else{
-            return res.status(400).json({ login: "OK"});
+            return res.json({ message: "OK",
+            email: req.body.email,
+            nameAccount: res.account,
+            name: res.name,
+        });
         }
     }catch (err) {
         res.status(500).json(err);

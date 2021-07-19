@@ -21,6 +21,10 @@ import Screens from './navigation/Screens';
 import Onboarding from './screens/Onboarding';
 import {NavigationContainer} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/es/integration/react';
+import {persistor, store} from './redux/store';
+import Loading from './screens/Loading';
 
 const App: () => Node = () => {
   // Set an initializing state whilst Firebase connects
@@ -30,7 +34,9 @@ const App: () => Node = () => {
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
-    if (initializing) setInitializing(false);
+    if (initializing) {
+      setInitializing(false);
+    }
   }
 
   useEffect(() => {
@@ -38,11 +44,19 @@ const App: () => Node = () => {
     return subscriber; // unsubscribe on unmount
   });
 
-  if (initializing) return null;
+  if (initializing) {
+    return null;
+  }
   return (
-    <NavigationContainer>
-      <Screens />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <StatusBar />
+        <NavigationContainer>
+          <Screens />
+        </NavigationContainer>
+        <Loading />
+      </PersistGate>
+    </Provider>
   );
 };
 

@@ -14,61 +14,59 @@ import Images from '../constants/Images';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import State from '../context/State';
+import {login} from '../redux/actions';
+import {useDispatch} from 'react-redux';
 
 const {height, width} = Dimensions.get('screen');
-GoogleSignin.configure({
-  webClientId: '214403862704-rmgqbt2glkl8fas6tb17ksgd3n749ghm',
-});
 
-async function FacebookLogin() {}
-async function GoogleLogin() {
-  // Get the users ID token
-  const {idToken} = await GoogleSignin.signIn();
-
-  // Create a Google credential with the token
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-  localStorage.setItem('idUser', JSON.stringify(idToken));
-
-  // Sign-in the user with the credential
-  return auth().signInWithCredential(googleCredential);
-}
-
-const pressLogin = (email, password) => {
-  return fetch('http://192.168.71.105:8001/login', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      if (json.login === 'OK') {
-        console.log('OK....');
-      } else {
-        console.log('NOT OK ....');
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-};
-
-const Login = props => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function Login(props) {
+  const [email, setEmail] = React.useState(__DEV__ ? 'test1234@gmail.com' : '');
+  const [password, setPassword] = React.useState(__DEV__ ? '12345bbbb' : '');
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
 
+  async function FacebookLogin() {}
+  async function GoogleLogin() {
+    // Get the users ID token
+    const {idToken} = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    localStorage.setItem('idUser', JSON.stringify(idToken));
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+  }
+
+  const handleLogin = React.useCallback(
+    (email, password) => () => {
+      dispatch(login(email, password));
+    },
+    [dispatch],
+  );
+
+  const _handleRouteToRegisterScreen = () => {
+    props.navigation.push('SignUp');
+  };
+
+  // const _testLoading = () => {
+  //   //Show app loading
+  //   dispatch(showLoading());
+  //   setTimeout(() => {
+  //     //Hide app loading
+  //     dispatch(hideLoading());
+  //   }, 2000);
+  // };
+
+  const dispatch = useDispatch();
+
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
-    if (initializing) setInitializing(false);
+    if (initializing) {
+      setInitializing(false);
+    }
   }
 
   useEffect(() => {
@@ -137,7 +135,7 @@ const Login = props => {
               opacity="20"
               email={email}
               password={password}
-              onPress={() => pressLogin(email, password)}>
+              onPress={() => handleLogin(email, password)}>
               <Text bold h5 color="white">
                 Login
               </Text>
@@ -190,14 +188,14 @@ const Login = props => {
           </Text>
           <Text
             style={[styles.textBody, {color: '#00ffff'}, {fontWeight: 'bold'}]}
-            onPress={() => props.navigation.navigate('SignUp')}>
+            onPress={() => _handleRouteToRegisterScreen()}>
             SignUp
           </Text>
         </View>
       </ImageBackground>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
