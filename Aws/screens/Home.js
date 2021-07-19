@@ -30,6 +30,8 @@ export default class Home extends React.Component {
       .then(response => response.json())
       .then(json => {
         this.setState({data: json.movies});
+
+        console.log(data);
       })
       .catch(error => console.error(error))
       .finally(() => {

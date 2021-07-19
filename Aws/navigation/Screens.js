@@ -19,13 +19,11 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const {width} = Dimensions.get('screen');
 
-function TabHome(props) {
+function HomePages(props){
   return (
-    <Tab.Navigator
-      initialRouteName="Login"
-      screenOptions={{
-        headerShown: false,
-      }}>
+    <Stack.Navigator mode="card" headerMode="none"
+      initialRouteName="Home"
+    >
       <Stack.Screen
         name="Home"
         component={Home}
@@ -39,10 +37,40 @@ function TabHome(props) {
           ),
         }}
       />
+      <Stack.Screen
+        name="Detail"
+        component={Detail}
+        options={{
+          header: () => (
+            <Header
+              search
+              title="Home"
+              // navigation={this.props.navigation}
+            />
+          ),
+        }}
+      />
+
+    </Stack.Navigator>
+  )
+}
+
+function TabHome(props) {
+  return (
+    <Tab.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen
+        name="HomePages"
+        component={HomePages}
+      />
       <Stack.Screen name="Upload" component={Upload} />
     </Tab.Navigator>
   );
 }
+
 
 function AppStack(props) {
   return (

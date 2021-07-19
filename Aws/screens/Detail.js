@@ -81,27 +81,27 @@ const Detail = () => {
                                 size={16}
                                 muted
                                 style={{
-                                    textAlign: 'center',
+                                    textAlign: 'left',
                                     fontFamily: 'montserrat-regular',
                                     zIndex: 2,
                                     lineHeight: 25,
-                                    color: '#9A9A9A',
+                                    color: 'black',
                                     paddingHorizontal: 15
                                 }}
                             >
-                                I feel like I'm losing hope
-                                In my body and my soul
-                                And the sky, it looks so ominous 
-                                And as time comes to a halt 
-                                Silence starts to overflow
-                                My cries are inconspicuous
-                                Tell me God, are you punishing me?
-                                Is this the price I'm paying for my past mistakes?
-                                This is my redemption song
-                                I need you more than ever right now
-                                Can you hear me now?
-                                'Cause we're gonna shout it loud
-                                Even if our words seem meaningless
+                                I feel like I'm losing hope{"\n"}
+                                In my body and my soul{"\n"}
+                                And the sky, it looks so ominous {"\n"}
+                                And as time comes to a halt {"\n"}
+                                Silence starts to overflow{"\n"}
+                                My cries are inconspicuous{"\n"}
+                                Tell me God, are you punishing me?{"\n"}
+                                Is this the price I'm paying for my past mistakes?{"\n"}
+                                This is my redemption song{"\n"}
+                                I need you more than ever right now{"\n"}
+                                Can you hear me now?{"\n"}
+                                'Cause we're gonna shout it loud{"\n"}
+                                Even if our words seem meaningless{"\n"}
                                 It's like I'm carrying the weight of the world
                                 I wish that someway, somehow
                                 That I could save every one of us
